@@ -1,0 +1,21 @@
+version: '3.8'
+services:
+  code-assistant-api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080" # Spring Bootのデフォルトポート
+    volumes:
+      - .:/app # プロジェクトフォルダをコンテナにマウント
+    stdin_open: true
+    tty: true
+
+  local-dev-db: # サービス名を変更
+    image: postgres:13
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: local_development
+    ports:
+      - "5432:5432"
